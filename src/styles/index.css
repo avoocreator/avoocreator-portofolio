@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --border-light: rgba(21, 28, 46, 0.14);
+  --border-light-strong: rgba(21, 28, 46, 0.28);
+  --grain-opacity: 0.035;
+  color-scheme: light;
+}
+
+.dark {
+  --border-light: rgba(241, 237, 234, 0.14);
+  --border-light-strong: rgba(241, 237, 234, 0.26);
+  --grain-opacity: 0.05;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  @apply bg-paper text-ink font-body antialiased;
+  background-image: radial-gradient(circle at 1px 1px, rgba(21, 28, 46, 0.05) 1px, transparent 0);
+  background-size: 28px 28px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  @apply bg-void text-cream;
+  background-image: radial-gradient(circle at 1px 1px, rgba(241, 237, 234, 0.045) 1px, transparent 0);
+}
+
+::selection {
+  background-color: #1F9C93;
+  color: #F4F3EF;
+}
+
+/* Consistent hairline border utility */
+.hairline {
+  border-color: var(--border-light);
+}
+
+.hairline-strong {
+  border-color: var(--border-light-strong);
+}
+
+/* Visible keyboard focus, everywhere */
+:focus-visible {
+  outline: 2px solid #1F9C93;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.dark :focus-visible {
+  outline-color: #5EE0DB;
+}
+
+/* Section index label */
+.index-label {
+  font-family: '"IBM Plex Mono"', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Utility: container */
+.container-page {
+  @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-10;
+}
+
+/* Custom scrollbar, subtle */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-light-strong);
+  border-radius: 999px;
+}
+
