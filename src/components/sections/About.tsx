@@ -1,12 +1,20 @@
 import { motion } from 'framer-motion'
+import { Code2, Palette, Cpu, FlaskConical } from 'lucide-react'
 import { SectionHeading } from '../ui/SectionHeading'
 
 const currently = [
-  ['Status', 'Terbuka untuk kolaborasi'],
-  ['Fokus', 'Web & Product Design'],
-  ['Peran', 'Developer / Designer'],
-  ['Lokasi', 'Jawa Timur, ID'],
-  ['Belajar', 'Framework baru, terus'],
+  ['Status', 'Pelajar SMA'],
+  ['Fokus', 'Web Development, Desain, Teknologi Kreatif, Riset'],
+  ['Peran', 'Developer / Designer / Creative Technologist / Researcher'],
+  ['Lokasi', 'Jawa Timur, Indonesia'],
+  ['Belajar', 'Frontend, Backend, UI/UX, IoT, Prototyping, Riset'],
+]
+
+const disciplines = [
+  { icon: Code2, title: 'Web Development', desc: 'Membangun website dan produk digital yang fungsional serta mudah digunakan.' },
+  { icon: Palette, title: 'Visual Design', desc: 'Mengolah estetika dan pengalaman pengguna melalui desain visual.' },
+  { icon: Cpu, title: 'Creative Technology', desc: 'Memadukan teknologi dan kreativitas melalui IoT, robotika, otomasi, dan eksperimen.' },
+  { icon: FlaskConical, title: 'Research & Problem Solving', desc: 'Menggunakan riset untuk menemukan solusi inovatif terhadap tantangan kompleks.' },
 ]
 
 const container = {
@@ -37,14 +45,10 @@ export function About() {
             className="md:col-span-7 border border-ink/12 dark:border-cream/12 p-8 md:p-10 bg-ink/[0.02] dark:bg-cream/[0.02]"
           >
             <p className="font-display text-2xl md:text-3xl font-medium leading-snug tracking-tight text-ink dark:text-cream">
-              Pelajar SMA yang menghabiskan waktu di antara dua dunia, menulis kode dan menata visual,
-              dan tidak mau memilih salah satunya saja.
+              Pelajar SMA yang mengeksplorasi teknologi, desain, dan riset. Senang mengubah ide menjadi karya melalui kode, visual, dan eksperimen.
             </p>
             <p className="mt-5 max-w-lg text-ink-muted dark:text-cream/60 leading-relaxed">
-              Dengan nama <b className="text-ink dark:text-cream">Avoo Creator</b>, Avian membangun tools,
-              antarmuka, dan visual kecil yang mengutamakan fungsi, baru kemudian tampilan. Terbiasa
-              bergerak dari masalah backend yang berat logika sampai detail visual yang sering dilewatkan
-              orang lain.
+              Melalui <b className="text-ink dark:text-cream">Avoo Creator</b>, Saya mengeksplorasi pengembangan website, desain digital, teknologi kreatif, dan riset. Setiap proyek menjadi kesempatan untuk menguji ide, memperluas kemampuan, serta mengubah gagasan menjadi karya yang fungsional dan relevan.
             </p>
           </motion.div>
 
@@ -68,32 +72,20 @@ export function About() {
             </ul>
           </motion.div>
 
-          <motion.div
-            variants={item}
-            className="md:col-span-4 p-7 bg-ink dark:bg-cream text-paper dark:text-void flex flex-col justify-between min-h-[150px]"
-          >
-            <span className="font-display font-bold text-4xl">02</span>
-            <span className="font-mono text-xs uppercase tracking-widest opacity-80">
-              Disiplin utama — Dev &amp; Design
-            </span>
-          </motion.div>
-          <motion.div
-            variants={item}
-            className="md:col-span-4 border border-ink/12 dark:border-cream/12 p-7 flex flex-col justify-between min-h-[150px]"
-          >
-            <span className="font-display font-bold text-4xl text-accent-orange">01</span>
-            <span className="font-mono text-xs uppercase tracking-widest text-ink-muted dark:text-cream/45">
-              Brand — Avoo Creator
-            </span>
-          </motion.div>
-          <motion.div
-            variants={item}
-            className="md:col-span-4 border border-ink/12 dark:border-cream/12 p-7 flex flex-col justify-between min-h-[150px]"
-          >
-            <span className="font-display font-bold text-4xl text-ink dark:text-cream">SMA</span>
-            <span className="font-mono text-xs uppercase tracking-widest text-ink-muted dark:text-cream/45">
-              Masih berstatus pelajar penuh waktu
-            </span>
+          <motion.div variants={item} className="md:col-span-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {disciplines.map(({ icon: Icon, title, desc }) => (
+              <div
+                key={title}
+                className="group border border-ink/12 dark:border-cream/12 p-6 flex flex-col gap-3 hover:border-accent-orange dark:hover:border-accent-teal-bright transition-colors"
+              >
+                <Icon
+                  className="h-6 w-6 text-ink dark:text-cream group-hover:text-accent-orange dark:group-hover:text-accent-teal-bright transition-colors"
+                  strokeWidth={1.75}
+                />
+                <h3 className="font-display font-bold text-base leading-snug text-ink dark:text-cream">{title}</h3>
+                <p className="text-xs text-ink-muted dark:text-cream/55 leading-relaxed">{desc}</p>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>

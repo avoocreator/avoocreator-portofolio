@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { navItems } from '../../data/nav'
 import { useActiveSection } from '../../hooks/useActiveSection'
 import { useTheme } from '../../hooks/useTheme'
@@ -11,6 +12,9 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const activeId = useActiveSection(navItems.map((item) => item.id))
+  const navigate = useNavigate()
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -26,9 +30,13 @@ export function Navbar() {
     }
   }, [mobileOpen])
 
-  const handleNavClick = (id: string) => {
+    const handleNavClick = (id: string) => {
     setMobileOpen(false)
-    scrollToId(id)
+    if (isHome) {
+      scrollToId(id)
+    } else {
+      navigate(`/#${id}`)
+    }
   }
 
   return (
