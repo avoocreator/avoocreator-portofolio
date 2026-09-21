@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 
 export interface TargetCursorProps {
@@ -15,6 +16,13 @@ const CORNER_SIZE = 12
 const BORDER_WIDTH = 3
 const PARALLAX_STRENGTH = 0.00005
 
+const COLLAPSED_POSITIONS = [
+  { x: -CORNER_SIZE * 1.5, y: -CORNER_SIZE * 1.5 },
+  { x: CORNER_SIZE * 0.5, y: -CORNER_SIZE * 1.5 },
+  { x: CORNER_SIZE * 0.5, y: CORNER_SIZE * 0.5 },
+  { x: -CORNER_SIZE * 1.5, y: CORNER_SIZE * 0.5 },
+]
+
 export default function TargetCursor({
   targetSelector = '.cursor-target',
   spinDuration = 2,
@@ -29,7 +37,11 @@ export default function TargetCursor({
   const cornersRef = useRef<NodeListOf<Element> | null>(null)
   const spinTl = useRef<gsap.core.Timeline | null>(null)
 
+  const activeTargetRef = useRef<Element | null>(null)
+  const activeCleanupRef = useRef<(() => void) | null>(null)
+
   const activeColor = cursorColorOnTarget ?? cursorColor
+  const location = useLocation()
 
   const isMobile = useMemo(() => {
     if (typeof window === 'undefined') return false
@@ -52,17 +64,12 @@ export default function TargetCursor({
     const cursor = cursorRef.current
     cornersRef.current = cursor.querySelectorAll('.target-cursor-corner')
 
-    let activeTarget: Element | null = null
-    let currentTargetMove: ((ev: Event) => void) | null = null
-    let currentLeaveHandler: (() => void) | null = null
     let isAnimatingToTarget = false
     let resumeTimeout: ReturnType<typeof setTimeout> | null = null
 
-    const cleanupTarget = (target: Element) => {
-      if (currentTargetMove) target.removeEventListener('mousemove', currentTargetMove)
-      if (currentLeaveHandler) target.removeEventListener('mouseleave', currentLeaveHandler)
-      currentTargetMove = null
-      currentLeaveHandler = null
+    const cleanupTarget = (target: Element, targetMove: (ev: Event) => void, leaveHandler: () => void) => {
+      target.removeEventListener('mousemove', targetMove)
+      target.removeEventListener('mouseleave', leaveHandler)
     }
 
     gsap.set(cursor, {
@@ -100,14 +107,14 @@ export default function TargetCursor({
       }
       const target = allTargets[0] || null
       if (!target || !cursorRef.current || !cornersRef.current) return
-      if (activeTarget === target) return
-      if (activeTarget) cleanupTarget(activeTarget)
+      if (activeTargetRef.current === target) return
+      activeCleanupRef.current?.()
       if (resumeTimeout) {
         clearTimeout(resumeTimeout)
         resumeTimeout = null
       }
 
-      activeTarget = target
+      activeTargetRef.current = target
       setColor(activeColor)
 
       gsap.killTweensOf(cursorRef.current, 'rotation')
@@ -171,27 +178,26 @@ export default function TargetCursor({
       }
 
       const leaveHandler = () => {
-        activeTarget = null
+        activeTargetRef.current = null
+        activeCleanupRef.current = null
         isAnimatingToTarget = false
         setColor(cursorColor)
 
         if (cornersRef.current) {
           const corners = Array.from(cornersRef.current)
           gsap.killTweensOf(corners)
-          const positions = [
-            { x: -CORNER_SIZE * 1.5, y: -CORNER_SIZE * 1.5 },
-            { x: CORNER_SIZE * 0.5, y: -CORNER_SIZE * 1.5 },
-            { x: CORNER_SIZE * 0.5, y: CORNER_SIZE * 0.5 },
-            { x: -CORNER_SIZE * 1.5, y: CORNER_SIZE * 0.5 },
-          ]
           const tl = gsap.timeline()
           corners.forEach((corner, index) => {
-            tl.to(corner, { x: positions[index].x, y: positions[index].y, duration: 0.3, ease: 'power3.out' }, 0)
+            tl.to(
+              corner,
+              { x: COLLAPSED_POSITIONS[index].x, y: COLLAPSED_POSITIONS[index].y, duration: 0.3, ease: 'power3.out' },
+              0
+            )
           })
         }
 
         resumeTimeout = setTimeout(() => {
-          if (!activeTarget && cursorRef.current && spinTl.current) {
+          if (!activeTargetRef.current && cursorRef.current && spinTl.current) {
             const currentRotation = Number(gsap.getProperty(cursorRef.current, 'rotation'))
             const normalizedRotation = currentRotation % 360
 
@@ -210,11 +216,10 @@ export default function TargetCursor({
           resumeTimeout = null
         }, 50)
 
-        cleanupTarget(target)
+        cleanupTarget(target, targetMove, leaveHandler)
       }
 
-      currentTargetMove = targetMove
-      currentLeaveHandler = leaveHandler
+      activeCleanupRef.current = () => cleanupTarget(target, targetMove, leaveHandler)
       target.addEventListener('mousemove', targetMove)
       target.addEventListener('mouseleave', leaveHandler)
     }
@@ -224,7 +229,9 @@ export default function TargetCursor({
     return () => {
       window.removeEventListener('mousemove', moveHandler)
       window.removeEventListener('mouseover', enterHandler as EventListener)
-      if (activeTarget) cleanupTarget(activeTarget)
+      activeCleanupRef.current?.()
+      activeCleanupRef.current = null
+      activeTargetRef.current = null
       spinTl.current?.kill()
       document.body.style.cursor = originalCursor
     }
@@ -239,6 +246,29 @@ export default function TargetCursor({
         .to(cursorRef.current, { rotation: '+=360', duration: spinDuration, ease: 'none' })
     }
   }, [spinDuration])
+
+  useEffect(() => {
+    if (isMobile) return
+
+    activeCleanupRef.current?.()
+    activeCleanupRef.current = null
+    activeTargetRef.current = null
+
+    if (dotRef.current) gsap.set(dotRef.current, { backgroundColor: cursorColor })
+    if (cornersRef.current) {
+      const corners = Array.from(cornersRef.current)
+      gsap.killTweensOf(corners)
+      corners.forEach((corner, index) => gsap.set(corner, COLLAPSED_POSITIONS[index]))
+    }
+    if (cursorRef.current) {
+      gsap.killTweensOf(cursorRef.current, 'rotation')
+      gsap.set(cursorRef.current, { rotation: 0 })
+      spinTl.current?.kill()
+      spinTl.current = gsap
+        .timeline({ repeat: -1 })
+        .to(cursorRef.current, { rotation: '+=360', duration: spinDuration, ease: 'none' })
+    }
+  }, [location.pathname])
 
   if (isMobile) return null
 
