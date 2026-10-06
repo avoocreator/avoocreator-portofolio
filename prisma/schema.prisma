@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Untuk produksi dengan Postgres gratis (Neon/Supabase), ubah provider
+// di atas menjadi "postgresql" dan arahkan DATABASE_URL ke server Postgres.
+// Lihat PANDUAN-DEPLOY.md bagian "Penyimpanan pesanan".
+
+model Order {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  service   String
+  message   String
+  budget    String?
+  deadline  String?
+  refLink   String?
+  locale    String   @default("id")
+  storedVia String   @default("local")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
