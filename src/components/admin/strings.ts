@@ -10,6 +10,7 @@ export const t = {
     submit: "Masuk",
     submitting: "Memeriksa…",
     salah: "Username atau password salah.",
+    terlalu: "Terlalu banyak percobaan gagal. Coba lagi dalam 10 menit.",
     kembali: "Kembali ke situs",
     firstHint: "Akun awal: admin / avoo2026 — segera ganti di menu Akun setelah masuk.",
   },
@@ -37,6 +38,10 @@ export const t = {
   },
   shell: {
     judul: "Dashboard Admin",
+    defaultPwTitle: "Password bawaan masih dipakai",
+    defaultPwBody:
+      "Password awal admin tertulis di repo publik, jadi siapa pun bisa menebaknya. Ganti sekarang di menu Akun.",
+    defaultPwCta: "Ganti password",
     sub: "Kelola seluruh konten situs tanpa menyentuh kode.",
     keluar: "Keluar",
     lihatSitus: "Lihat situs",

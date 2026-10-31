@@ -69,7 +69,7 @@ export function AboutTeaser() {
             <TiltCard className="h-full">
               <div className="card-editorial relative h-full aspect-[4/5] sm:aspect-auto sm:min-h-[440px] overflow-hidden">
                 <img
-                  src={photoFailed ? "/assets/mascot/mascot-curious.svg" : PHOTO_SRC}
+                  src={photoFailed ? "/assets/mascot/mascot-curious.webp" : PHOTO_SRC}
                   alt={lang === "id" ? "Foto Avian, pemilik Avoo Creator" : "Photo of Avian, owner of Avoo Creator"}
                   onError={() => setPhotoFailed(true)}
                   draggable={false}

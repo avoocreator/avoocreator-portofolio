@@ -14,7 +14,7 @@ export function AdminLoginForm() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<"invalid" | "db" | null>(null);
+  const [error, setError] = useState<"invalid" | "db" | "limited" | null>(null);
   const [checking, setChecking] = useState(false);
 
   const login = async (e: React.FormEvent) => {
@@ -33,7 +33,13 @@ export function AdminLoginForm() {
         router.refresh();
         return;
       }
-      setError(json.error === "DB_NOT_CONFIGURED" || res.status >= 500 ? "db" : "invalid");
+      setError(
+        res.status === 429
+          ? "limited"
+          : json.error === "DB_NOT_CONFIGURED" || res.status >= 500
+            ? "db"
+            : "invalid"
+      );
     } catch {
       setError("db");
     } finally {
@@ -89,6 +95,9 @@ export function AdminLoginForm() {
           {error === "invalid" && (
             <p className="text-xs text-destructive">{t.login.salah}</p>
           )}
+          {error === "limited" && (
+            <p className="text-xs text-destructive">{t.login.terlalu}</p>
+          )}
           {error === "db" && (
             <div className="flex gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-xs leading-relaxed text-destructive">
               <TriangleAlert size={14} className="mt-0.5 shrink-0" />
@@ -107,9 +116,12 @@ export function AdminLoginForm() {
             {checking ? t.login.submitting : t.login.submit}
           </Button>
         </form>
-        <p className="mt-5 rounded-lg bg-muted/60 p-3 text-[11px] leading-relaxed text-muted-foreground">
-          {t.login.firstHint}
-        </p>
+        {/* Petunjuk akun awal hanya tampil di mode dev — jangan bocorkan di situs yang sudah online. */}
+        {process.env.NODE_ENV !== "production" && (
+          <p className="mt-5 rounded-lg bg-muted/60 p-3 text-[11px] leading-relaxed text-muted-foreground">
+            {t.login.firstHint}
+          </p>
+        )}
         <Link
           href="/"
           className="mt-4 inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-accent"

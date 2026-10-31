@@ -3,6 +3,8 @@ import { z } from "zod";
 import { db, supabaseConfigured, ZERO_UUID } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { normalizeToolRefs } from "@/lib/tools";
+import { invalidateContent } from "@/lib/cache";
+import { contentLink } from "@/lib/validators";
 
 /**
  * API konten admin — pola "full list replace":
@@ -24,7 +26,7 @@ const schemas = {
       tags: z.array(z.string().max(60)).max(20),
       status: z.enum(["selesai", "berjalan", "riset", "konsep"]),
       year: z.string().max(10).optional().nullable(),
-      link: z.string().max(500).optional().nullable(),
+      link: contentLink(500),
     })
   ),
   services: z.array(
@@ -81,7 +83,7 @@ const schemas = {
           title: L,
           role: L.optional().nullable(),
           description: L,
-          link: z.string().max(500).optional().nullable(),
+          link: contentLink(500),
           featured: z.boolean().optional().nullable(),
         })
       ).max(50),
@@ -312,6 +314,7 @@ export async function PUT(
       );
     }
     await writeItems(type, parsed.data);
+    invalidateContent();
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ ok: false, error: "SERVER" }, { status: 500 });

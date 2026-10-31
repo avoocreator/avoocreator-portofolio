@@ -17,6 +17,10 @@ export interface AdminRecord {
  */
 
 export const SESSION_COOKIE = "avoo_admin_session";
+
+/** Akun awal bila ADMIN_USERNAME / ADMIN_PASSWORD tidak diisi di env. */
+export const DEFAULT_ADMIN_USERNAME = "admin";
+export const DEFAULT_ADMIN_PASSWORD = "avoo2026";
 const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 hari
 
 export interface SessionData {
@@ -44,9 +48,31 @@ export function verifyPassword(password: string, stored: string): boolean {
   }
 }
 
+/** true kalau hash ini masih password bawaan (hasilnya diingat supaya scrypt tidak dihitung ulang). */
+const defaultPasswordMemo = new Map<string, boolean>();
+export function isDefaultPassword(hash: string): boolean {
+  let v = defaultPasswordMemo.get(hash);
+  if (v === undefined) {
+    v = verifyPassword(DEFAULT_ADMIN_PASSWORD, hash);
+    defaultPasswordMemo.set(hash, v);
+  }
+  return v;
+}
+
 /* ---------------- Session secret ---------------- */
 
+// Secret sesi jarang berubah; jangan baca DB di setiap request admin.
+let secretCache: { value: string; at: number } | null = null;
+const SECRET_TTL_MS = 5 * 60 * 1000;
+
 async function getSessionSecret(): Promise<string> {
+  if (secretCache && Date.now() - secretCache.at < SECRET_TTL_MS) return secretCache.value;
+  const value = await loadSessionSecret();
+  secretCache = { value, at: Date.now() };
+  return value;
+}
+
+async function loadSessionSecret(): Promise<string> {
   const KEY = "_session_secret";
   const { data: row, error } = await db
     .from("settings")
@@ -133,6 +159,12 @@ export async function requireAdmin(): Promise<string | null> {
   } catch {
     return null;
   }
+}
+
+/** true kalau akun admin ini masih memakai password bawaan. */
+export async function adminUsesDefaultPassword(username: string): Promise<boolean> {
+  const user = await findAdmin(username);
+  return user ? isDefaultPassword(user.password_hash) : false;
 }
 
 /** Cari akun admin berdasarkan username. */

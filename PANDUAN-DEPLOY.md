@@ -159,3 +159,15 @@ Segera ganti lagi setelah masuk.
 Aman. Tabel dilindungi **Row Level Security tanpa policy** — kredensial publik
 tidak bisa membaca/menulis apa pun. Hanya permintaan dengan kunci `service_role`
 (yang hanya ada di servermu) yang bisa mengakses data.
+
+
+---
+
+## Keamanan admin (penting)
+
+- Password awal `avoo2026` tertulis di repo publik. Di Vercel, isi **`ADMIN_USERNAME`** dan **`ADMIN_PASSWORD`**
+  pada Environment Variables **sebelum** membuka `/admin` pertama kali — akun awal akan dibuat dengan nilai itu.
+- Kalau sudah terlanjur memakai password bawaan, panel admin menampilkan peringatan kuning; ganti lewat menu **Akun**.
+- Login dibatasi 8 percobaan gagal per IP per 10 menit; pengiriman pesanan dibatasi 6 per IP per 10 menit.
+- Petunjuk "Akun awal: admin / avoo2026" di halaman login hanya muncul saat `npm run dev`, tidak di situs yang sudah online.
+- Tambahkan `NEXT_PUBLIC_SITE_URL=https://domain-kamu.com` supaya `sitemap.xml` dan `robots.txt` memakai domainmu.

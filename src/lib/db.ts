@@ -32,14 +32,26 @@ export const db: SupabaseClient = createClient(
   key || "placeholder-anon-key",
   {
     auth: { persistSession: false, autoRefreshToken: false },
-  }
+    // supabase-js terbaru otomatis mengulang permintaan GET yang gagal 3x (jeda 1+2+4 detik = 7 detik).
+    // Itu yang membuat setiap halaman "menggantung 7 detik" saat database tidak terjangkau.
+    // Situs sudah punya data bawaan + cache, jadi gagal cepat lebih baik daripada menunggu.
+    db: { retry: false },
+    global: {
+      // Batas waktu tiap permintaan: Supabase yang lambat/mati tidak boleh membuat halaman menggantung.
+      fetch: (input, init) => {
+        const timeout = AbortSignal.timeout(4000);
+        const signal = init?.signal ? AbortSignal.any([init.signal, timeout]) : timeout;
+        return fetch(input, { ...init, signal });
+      },
+    },
+  },
 );
 
 /** Error database yang bisa dibedakan dari error lain. */
 export class DbError extends Error {
   constructor(
     message: string,
-    public readonly code: "NOT_CONFIGURED" | "DB" = "DB"
+    public readonly code: "NOT_CONFIGURED" | "DB" = "DB",
   ) {
     super(message);
     this.name = "DbError";
@@ -51,7 +63,7 @@ export function assertConfigured(): void {
   if (!supabaseConfigured) {
     throw new DbError(
       "SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY belum diisi di .env.local",
-      "NOT_CONFIGURED"
+      "NOT_CONFIGURED",
     );
   }
 }

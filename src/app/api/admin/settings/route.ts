@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db, supabaseConfigured } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
+import { invalidateContent } from "@/lib/cache";
 
 const L = z.object({ id: z.string().max(2000), en: z.string().max(2000) });
 
@@ -72,6 +73,7 @@ export async function PUT(req: NextRequest) {
       .from("settings")
       .upsert({ key: "site", value: parsed.data }, { onConflict: "key" });
     if (error) throw new Error(error.message);
+    invalidateContent();
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ ok: false, error: "SERVER" }, { status: 500 });

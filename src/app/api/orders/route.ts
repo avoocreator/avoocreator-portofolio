@@ -3,21 +3,34 @@ import { z } from "zod";
 import { createOrder } from "@/lib/orders";
 import { requireAdmin } from "@/lib/auth";
 import { ensureSeeded } from "@/lib/seed";
+import { clientIp, isRateLimited, recordHit } from "@/lib/rate-limit";
+import { optionalHttpUrl } from "@/lib/validators";
+
+// Maks. 6 pesanan per IP dalam 10 menit (cukup untuk pemakaian normal, menahan spam).
+const ORDER_LIMIT = 6;
+const ORDER_WINDOW_MS = 10 * 60 * 1000;
 
 const orderSchema = z.object({
   name: z.string().min(2).max(80),
   phone: z.string().min(8).max(24),
-  email: z.string().max(120).optional().or(z.literal("")),
+  email: z.string().max(120).email().optional().or(z.literal("")),
   service: z.string().min(2).max(120),
   message: z.string().min(10).max(2000),
   budget: z.string().max(60).optional().or(z.literal("")),
   deadline: z.string().max(40).optional().or(z.literal("")),
-  refLink: z.string().max(400).optional().or(z.literal("")),
+  refLink: optionalHttpUrl(400),
   locale: z.enum(["id", "en"]).default("id"),
 });
 
 export async function POST(req: NextRequest) {
   try {
+    const rlKey = `order:${clientIp(req.headers)}`;
+    if (isRateLimited(rlKey, ORDER_LIMIT, ORDER_WINDOW_MS)) {
+      return NextResponse.json(
+        { ok: false, error: "RATE_LIMITED" },
+        { status: 429, headers: { "Retry-After": String(ORDER_WINDOW_MS / 1000) } }
+      );
+    }
     const body = await req.json();
     const parsed = orderSchema.safeParse(body);
     if (!parsed.success) {
@@ -26,6 +39,7 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+    recordHit(rlKey, ORDER_WINDOW_MS);
     const d = parsed.data;
     const result = await createOrder({
       name: d.name,

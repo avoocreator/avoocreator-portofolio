@@ -20,6 +20,7 @@ import {
   LogOut,
   ExternalLink,
   Loader2,
+  TriangleAlert,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { t } from "./strings";
@@ -54,7 +55,13 @@ const NAV = [
 
 type SectionKey = (typeof NAV)[number]["key"];
 
-export function AdminShell({ username }: { username: string }) {
+export function AdminShell({
+  username,
+  defaultPassword = false,
+}: {
+  username: string;
+  defaultPassword?: boolean;
+}) {
   const router = useRouter();
   const [section, setSection] = useState<SectionKey>("ringkasan");
 
@@ -98,6 +105,21 @@ export function AdminShell({ username }: { username: string }) {
       </header>
 
       <div className="flex-1 mx-auto w-full max-w-[1280px] px-4 sm:px-6 py-8">
+        {defaultPassword && section !== "akun" && (
+          <div
+            role="alert"
+            className="mb-6 flex flex-wrap items-center gap-3 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm"
+          >
+            <TriangleAlert size={18} className="shrink-0 text-amber-600 dark:text-amber-400" />
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold">{t.shell.defaultPwTitle}</p>
+              <p className="text-muted-foreground">{t.shell.defaultPwBody}</p>
+            </div>
+            <Button size="sm" onClick={() => setSection("akun")}>
+              {t.shell.defaultPwCta}
+            </Button>
+          </div>
+        )}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[220px_1fr]">
           {/* Sidebar */}
           <aside className="min-w-0 lg:sticky lg:top-24 self-start">

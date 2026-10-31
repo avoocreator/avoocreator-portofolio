@@ -1,6 +1,6 @@
 import "server-only";
 import { db, supabaseConfigured, ZERO_UUID } from "@/lib/db";
-import { hashPassword } from "@/lib/auth";
+import { DEFAULT_ADMIN_PASSWORD, DEFAULT_ADMIN_USERNAME, hashPassword } from "@/lib/auth";
 import {
   projects as seedProjects,
   services as seedServices,
@@ -29,7 +29,8 @@ async function tableIsEmpty(table: string): Promise<boolean> {
 /**
  * Isi database Supabase dengan data awal (dari src/data) jika belum pernah
  * di-seed. Idempotent: kalau flag sudah ada, tidak melakukan apa-apa.
- * Data admin default: username "admin", password "avoo2026".
+ * Akun admin awal: dari env ADMIN_USERNAME / ADMIN_PASSWORD kalau diisi (disarankan di produksi);
+ * kalau tidak, username "admin" dan password "avoo2026" — segera ganti di menu Akun.
  *
  * TIDAK PERNAH melempar error — selalu kembalikan status supaya halaman
  * admin bisa menampilkan panduan setup dengan rapi.
@@ -209,8 +210,8 @@ export async function ensureSeeded(): Promise<SeedResult> {
     // --- Akun admin default ---
     if (await tableIsEmpty("admin_users")) {
       const { error } = await db.from("admin_users").insert({
-        username: "admin",
-        password_hash: hashPassword("avoo2026"),
+        username: (process.env.ADMIN_USERNAME || DEFAULT_ADMIN_USERNAME).trim().toLowerCase(),
+        password_hash: hashPassword(process.env.ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD),
       });
       if (error) throw new Error(`admin_users: ${error.message}`);
     }
