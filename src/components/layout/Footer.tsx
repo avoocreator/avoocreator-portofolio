@@ -48,20 +48,20 @@ export function Footer({ email, location, services }: FooterProps) {
               href="/"
               className="flex items-center gap-2.5 font-display font-extrabold tracking-tight text-xl group"
             >
-              <span className="relative flex h-8 w-8 items-center justify-center shrink-0">
+              <span className="relative flex h-9 w-9 items-center justify-center shrink-0">
                 <img
                   src="/assets/logo/logo-orange.webp"
                   alt="Avoo Creator"
-                  width={32}
-                  height={32}
-                  className="h-7 w-auto object-contain dark:hidden transition-transform group-hover:scale-105"
+                  width={36}
+                  height={36}
+                  className="h-8 w-auto object-contain dark:hidden transition-transform group-hover:scale-105"
                 />
                 <img
                   src="/assets/logo/logo-white.webp"
                   alt="Avoo Creator"
-                  width={32}
-                  height={32}
-                  className="h-7 w-auto object-contain hidden dark:block transition-transform group-hover:scale-105"
+                  width={36}
+                  height={36}
+                  className="h-8 w-auto object-contain hidden dark:block transition-transform group-hover:scale-105"
                 />
               </span>
               <span>

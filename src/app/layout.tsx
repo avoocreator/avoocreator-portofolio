@@ -46,11 +46,11 @@ export const metadata: Metadata = {
   authors: [{ name: "Avian" }],
   icons: {
     icon: [
-      { url: "/favicon.ico?v=2", sizes: "any" },
-      { url: "/favicon.png?v=2", type: "image/png" },
-      { url: "/favicon.svg?v=2", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=3", sizes: "any" },
+      { url: "/favicon.png?v=3", type: "image/png" },
+      { url: "/favicon.svg?v=3", type: "image/svg+xml" },
     ],
-    apple: "/apple-touch-icon.png?v=2",
+    apple: "/apple-touch-icon.png?v=3",
   },
   openGraph: {
     title: "Avoo Creator",
