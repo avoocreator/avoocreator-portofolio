@@ -2,130 +2,161 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Quote } from "lucide-react";
+import { ArrowUpRight, Sparkles, Layers, Compass } from "lucide-react";
 import { useLang } from "@/i18n/LangProvider";
 import { tx } from "@/i18n/types";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { TiltCard } from "@/components/ui/TiltCard";
+import { Mascot } from "@/components/mascot/Mascot";
 
-/** Taruh fotomu di public/assets/about/avian.jpg */
 const PHOTO_SRC = "/assets/about/avian.jpg";
 
-/** Teaser tentang — grid bento */
 export function AboutTeaser() {
   const { lang, dict } = useLang();
   const [photoFailed, setPhotoFailed] = useState(false);
 
-  const cards = [
+  const pillars = [
     {
-      title: { id: "Bangun dari nol", en: "Built from scratch" },
-      body: {
-        id: "Website, desain, sampai prototipe IoT — semua lewat tangan sendiri dari brief pertama sampai serah terima.",
-        en: "Websites, designs, even IoT prototypes — all handled personally from the first brief to handover.",
+      num: "01",
+      title: { id: "Detail yang Berarti", en: "Meaningful Details" },
+      desc: {
+        id: "Saya suka memperhatikan hal-hal kecil dalam desain, mulai dari pemilihan warna hingga tata letak. Buat saya, detail sederhana bisa membuat sebuah karya terasa jauh lebih baik.",
+        en: "I pay close attention to the small things in design, from color palettes to layout. To me, thoughtful details elevate a piece from good to truly memorable.",
       },
-      className: "sm:col-span-2",
+      icon: Sparkles,
     },
     {
-      title: { id: "Desain × Kode", en: "Design × Code" },
-      body: {
-        id: "Dua sisi otak yang bekerja bersama: visual yang berkelas, kode yang rapi.",
-        en: "Two sides of the brain working together: classy visuals, clean code.",
+      num: "02",
+      title: { id: "Ide Jadi Nyata", en: "Ideas Made Real" },
+      desc: {
+        id: "Saya senang mengubah ide menjadi sesuatu yang benar-benar bisa digunakan. Mulai dari merancang tampilan hingga membangun website, saya menikmati setiap proses di baliknya.",
+        en: "I love turning ideas into something people can actually use. From designing interfaces to engineering websites, I enjoy every step of the craft.",
       },
-      className: "",
+      icon: Layers,
     },
     {
-      title: { id: "Belajar membangun", en: "Learning by building" },
-      body: {
-        id: "Setiap proyek adalah ruang kelas — selalu ada satu teknik baru yang dicoba.",
-        en: "Every project is a classroom — there's always one new technique being tried.",
+      num: "03",
+      title: { id: "Selalu Penasaran", en: "Always Curious" },
+      desc: {
+        id: "Saya suka mencoba hal baru, bereksperimen dengan teknologi, dan mencari tahu bagaimana sesuatu bekerja. Mulai dari pengembangan web hingga proyek robotika, selalu ada hal baru untuk dipelajari.",
+        en: "I love trying new things, experimenting with technology, and figuring out how things tick. From web development to robotics projects, there's always something new to learn.",
       },
-      className: "",
+      icon: Compass,
     },
   ];
 
   return (
-    <section className="py-20 sm:py-24" aria-label="Tentang singkat">
+    <section className="py-20 sm:py-28 relative overflow-hidden" aria-label="Tentang Avian">
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
-        <div className="flex items-end justify-between gap-6 mb-10">
-          <SectionHeading
-            kicker={dict.home.aboutKicker}
-            title={dict.home.aboutTitle}
-          />
-          <Reveal delay={0.2} className="hidden md:block shrink-0">
-            <Link
-              href="/tentang"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:gap-2.5 transition-all"
-            >
-              {dict.home.aboutLainnya}
-              <ArrowUpRight size={15} />
-            </Link>
-          </Reveal>
-        </div>
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-center">
+          
+          {/* Sisi Kiri: Visual Avatar / Maskot bebas tanpa kotak kaku */}
+          <Reveal className="flex flex-col items-center justify-center">
+            <div className="relative w-full max-w-[340px] aspect-square flex items-center justify-center">
+              {/* Pendaran ambient hangat */}
+              <div
+                className="absolute inset-0 rounded-full bg-accent/15 blur-3xl scale-90 pointer-events-none"
+                aria-hidden="true"
+              />
 
-        <div className="grid gap-4 sm:grid-cols-3">
-          {/* Kartu foto: memanjang 3 baris di kiri supaya grid rapat tanpa celah */}
-          <Reveal className="sm:row-span-3">
-            <TiltCard className="h-full">
-              <div className="card-editorial relative h-full aspect-[4/5] sm:aspect-auto sm:min-h-[440px] overflow-hidden">
-                <img
-                  src={photoFailed ? "/assets/mascot/mascot-curious.webp" : PHOTO_SRC}
-                  alt={lang === "id" ? "Foto Avian, pemilik Avoo Creator" : "Photo of Avian, owner of Avoo Creator"}
-                  onError={() => setPhotoFailed(true)}
-                  draggable={false}
-                  className={
-                    photoFailed
-                      ? "absolute inset-0 h-full w-full object-contain p-10"
-                      : "absolute inset-0 h-full w-full object-cover object-top"
-                  }
-                />
-                <div
-                  className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/55 to-transparent"
-                  aria-hidden="true"
-                />
-                <span className="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white/90">
-                  {lang === "id" ? "Avian — di balik Avoo" : "Avian — behind Avoo"}
-                </span>
-              </div>
-            </TiltCard>
-          </Reveal>
-
-          {cards.map((c, i) => (
-            <Reveal key={i} delay={0.08 * (i + 1)} className={c.className}>
-              <TiltCard className="h-full">
-                <div className="card-editorial h-full p-6 flex flex-col gap-2">
-                  <h3 className="font-display font-bold text-lg tracking-tight">
-                    {tx(c.title, lang)}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {tx(c.body, lang)}
-                  </p>
+              {!photoFailed ? (
+                <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden border-2 border-border/80 shadow-xl">
+                  <img
+                    src={PHOTO_SRC}
+                    alt={lang === "id" ? "Avian — Avoo Creator" : "Avian — Avoo Creator"}
+                    onError={() => setPhotoFailed(true)}
+                    className="h-full w-full object-cover object-top"
+                  />
                 </div>
-              </TiltCard>
-            </Reveal>
-          ))}
-
-          {/* Kutipan */}
-          <Reveal className="sm:col-span-2">
-            <div className="card-editorial h-full p-6 flex items-start gap-4 bg-gradient-to-br from-card to-muted/60">
-              <Quote size={22} className="text-accent shrink-0 mt-1" />
-              <p className="font-display font-semibold text-lg sm:text-xl leading-snug tracking-tight">
-                {lang === "id"
-                  ? "“Bangun yang jalan, bukan yang cuma bagus di mockup.”"
-                  : "“Build things that run — not things that just look good in mockups.”"}
-              </p>
+              ) : (
+                <div className="relative flex flex-col items-center">
+                  <Mascot
+                    variant="curious"
+                    className="w-56 sm:w-64 drop-shadow-[0_20px_35px_rgba(226,102,31,0.2)]"
+                    float={true}
+                  />
+                </div>
+              )}
             </div>
           </Reveal>
 
-          <Reveal className="md:hidden">
-            <Link
-              href="/tentang"
-              className="card-editorial flex items-center justify-between p-5 font-medium text-accent"
-            >
-              {dict.home.aboutLainnya}
-              <ArrowUpRight size={16} />
-            </Link>
-          </Reveal>
+          {/* Sisi Kanan: Narasi editorial yang mengalir */}
+          <div className="flex flex-col gap-8">
+            <SectionHeading
+              kicker={dict.home.aboutKicker}
+              title={
+                lang === "id" ? (
+                  <>
+                    Kenalan dengan orang di balik{" "}
+                    <span className="text-accent">Avoo Creator.</span>
+                  </>
+                ) : (
+                  <>
+                    Meet the creator behind{" "}
+                    <span className="text-accent">Avoo.</span>
+                  </>
+                )
+              }
+            />
+
+            <Reveal delay={0.12}>
+              <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
+                <p>
+                  {lang === "id" ? (
+                    <>
+                      <strong className="font-bold text-accent">
+                        Saya Avian
+                      </strong>
+                      , kreator di balik Avoo Creator. Berawal dari rasa ingin tahu terhadap teknologi dan desain, saya terus mengeksplorasi cara mengubah ide menjadi karya digital. Mulai dari antarmuka yang intuitif hingga website yang fungsional, saya selalu berusaha menciptakan sesuatu yang sederhana, bermakna, dan bermanfaat.
+                    </>
+                  ) : (
+                    <>
+                      <strong className="font-bold text-accent">
+                        I&apos;m Avian
+                      </strong>
+                      , the creator behind Avoo Creator. Rooted in a deep curiosity for technology and design, I constantly explore ways to turn ideas into digital works. From intuitive interfaces to functional websites, I always strive to create something simple, meaningful, and purposeful.
+                    </>
+                  )}
+                </p>
+              </div>
+            </Reveal>
+
+            {/* 3 Pilar Editorial — tanpa kartu kotak kaku */}
+            <div className="border-t border-border divide-y divide-border">
+              {pillars.map((p, idx) => (
+                <Reveal key={p.num} delay={0.16 + idx * 0.08}>
+                  <div className="py-4.5 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 group">
+                    <div className="flex items-center gap-2 sm:w-44 shrink-0">
+                      <span className="font-mono text-xs text-accent font-semibold tracking-wider">
+                        {p.num}
+                      </span>
+                      <h3 className="font-display font-bold text-base text-foreground group-hover:text-accent transition-colors">
+                        {tx(p.title, lang)}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {tx(p.desc, lang)}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            {/* Tautan ke halaman lengkap */}
+            <Reveal delay={0.4}>
+              <div className="pt-2">
+                <Link
+                  href="/tentang"
+                  className="inline-flex items-center gap-2 rounded-full border border-border-strong px-6 py-2.5 text-sm font-semibold transition-all hover:bg-muted hover:border-foreground/30 hover:gap-3"
+                >
+                  {dict.home.aboutLainnya}
+                  <ArrowUpRight size={15} />
+                </Link>
+              </div>
+            </Reveal>
+
+          </div>
+
         </div>
       </div>
     </section>

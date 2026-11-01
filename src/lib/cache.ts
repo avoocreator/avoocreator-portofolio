@@ -19,6 +19,7 @@ interface Entry<T> {
 }
 
 const TTL_MS = (() => {
+  if (process.env.NODE_ENV === "development") return 0;
   const raw = Number(process.env.CONTENT_CACHE_TTL_MS);
   return Number.isFinite(raw) && raw >= 0 ? raw : 30_000;
 })();

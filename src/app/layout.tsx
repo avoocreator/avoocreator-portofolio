@@ -29,7 +29,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://avoocreator-portofolio.vercel.app"),
   title: {
-    default: "Avoo Creator — Avian",
+    default: "Avoo Creator",
     template: "%s — Avoo Creator",
   },
   description:
@@ -44,9 +44,15 @@ export const metadata: Metadata = {
     "jasa website",
   ],
   authors: [{ name: "Avian" }],
-  icons: { icon: "/favicon.svg" },
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
-    title: "Avoo Creator — Avian",
+    title: "Avoo Creator",
     description:
       "Web developer & graphic designer yang membangun hal yang jalan — bukan sekadar tampil bagus.",
     url: "https://avoocreator-portofolio.vercel.app",
@@ -56,7 +62,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Avoo Creator — Avian",
+    title: "Avoo Creator",
     description: "Web developer & graphic designer — build things that run.",
   },
 };

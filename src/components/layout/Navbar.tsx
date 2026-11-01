@@ -55,8 +55,30 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 flex h-16 items-center justify-between gap-3">
-        <Link href="/" className="font-display font-extrabold tracking-tight text-lg" aria-label="Avoo Creator — Beranda">
-          Avoo<span className="text-accent">.</span>Creator
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 font-display font-extrabold tracking-tight text-lg group"
+          aria-label="Avoo Creator — Beranda"
+        >
+          <span className="relative flex h-8 w-8 items-center justify-center shrink-0">
+            <img
+              src="/assets/logo/logo-orange.webp"
+              alt="Avoo Creator"
+              width={32}
+              height={32}
+              className="h-7 w-auto object-contain dark:hidden transition-transform group-hover:scale-105"
+            />
+            <img
+              src="/assets/logo/logo-white.webp"
+              alt="Avoo Creator"
+              width={32}
+              height={32}
+              className="h-7 w-auto object-contain hidden dark:block transition-transform group-hover:scale-105"
+            />
+          </span>
+          <span>
+            Avoo<span className="text-accent">.</span>Creator
+          </span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-0.5" aria-label="Navigasi utama">

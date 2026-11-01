@@ -44,8 +44,29 @@ export function Footer({ email, location, services }: FooterProps) {
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 py-12">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div className="flex flex-col gap-3">
-            <Link href="/" className="font-display font-extrabold tracking-tight text-xl">
-              Avoo<span className="text-accent">.</span>Creator
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 font-display font-extrabold tracking-tight text-xl group"
+            >
+              <span className="relative flex h-8 w-8 items-center justify-center shrink-0">
+                <img
+                  src="/assets/logo/logo-orange.webp"
+                  alt="Avoo Creator"
+                  width={32}
+                  height={32}
+                  className="h-7 w-auto object-contain dark:hidden transition-transform group-hover:scale-105"
+                />
+                <img
+                  src="/assets/logo/logo-white.webp"
+                  alt="Avoo Creator"
+                  width={32}
+                  height={32}
+                  className="h-7 w-auto object-contain hidden dark:block transition-transform group-hover:scale-105"
+                />
+              </span>
+              <span>
+                Avoo<span className="text-accent">.</span>Creator
+              </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
               {dict.footer.tagline}

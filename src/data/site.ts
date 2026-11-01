@@ -23,8 +23,8 @@ export const site = {
   email: "hello@avoocreator.dev",
   location: { id: "Jawa Timur, Indonesia", en: "East Java, Indonesia" } as L,
   availability: {
-    id: "Terbuka untuk proyek baru",
-    en: "Open for new projects",
+    id: "Siap ngulik hal baru",
+    en: "Ready to build & explore",
   } as L,
   socials: [
     { label: "GitHub", href: "https://github.com/avoocreator", handle: "@avoocreator" },

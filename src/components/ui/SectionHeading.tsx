@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 import { Reveal } from "./Reveal";
 
 interface SectionHeadingProps {
-  kicker: string;
-  title: string;
+  kicker: React.ReactNode;
+  title: React.ReactNode;
   sub?: string;
   align?: "left" | "center";
   className?: string;
@@ -30,10 +30,8 @@ export function SectionHeading({
       )}
     >
       <Reveal y={16} blur={false}>
-        <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">
-          <span className="h-px w-8 bg-accent/60" aria-hidden="true" />
+        <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
           {kicker}
-          {align === "center" && <span className="h-px w-8 bg-accent/60" aria-hidden="true" />}
         </span>
       </Reveal>
       <Reveal delay={0.08}>

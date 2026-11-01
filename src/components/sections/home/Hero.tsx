@@ -25,8 +25,8 @@ export function Hero({ availability }: { availability?: L }) {
 
   const headline =
     lang === "id"
-      ? ["Membangun hal yang", "jalan — bukan cuma", "tampil bagus."]
-      : ["Building things that", "run — not just", "look good."];
+      ? ["Karya terbaik lahir", "dari rasa ingin tahu", "yang tak pernah usai."]
+      : ["Great things are born", "from curiosity", "that never fades."];
 
   const handleMouse = (e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -63,15 +63,6 @@ export function Hero({ availability }: { availability?: L }) {
               </span>
             </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.15, duration: 0.6 }}
-              className="font-mono text-sm text-muted-foreground mb-3"
-            >
-              {dict.hero.perkenalan}
-            </motion.p>
-
             <h1 className="font-display font-extrabold tracking-tight leading-[1.02] text-[2.6rem] sm:text-6xl lg:text-[4.4rem]">
               <RevealLines lines={[headline[0]]} delay={0.2} />
               <RevealLines
@@ -90,8 +81,8 @@ export function Hero({ availability }: { availability?: L }) {
             >
               {tx(
                 {
-                  id: "Saya Avian — web developer & graphic designer dari Jawa Timur. Saya bantu ide kamu jadi website, desain, dan prototipe yang benar-benar bisa dipakai.",
-                  en: "I'm Avian — a web developer & graphic designer from East Java. I turn your ideas into websites, designs, and prototypes you can actually use.",
+                  id: "Merancang visual, menulis kode, dan membangun pengalaman web yang hidup serta nyaman dinikmati.",
+                  en: "Designing visuals, writing code, and building web experiences that feel alive and seamless.",
                 },
                 lang
               )}

@@ -32,8 +32,8 @@ export const expertiseGroups: ExpertiseGroup[] = [
     id: "development",
     title: { id: "Web Development", en: "Web Development" },
     description: {
-      id: "Membangun antarmuka dan sistem yang jalan, bukan sekadar mockup.",
-      en: "Building interfaces and systems that actually run — not just mockups.",
+      id: "Merancang website interaktif yang responsif, cepat diakses, dan nyaman digunakan di berbagai perangkat.",
+      en: "Building interactive, responsive websites that load fast and feel effortless on any device.",
     },
     longDescription: {
       id: "Dari landing page sampai aplikasi web dengan dashboard — ditulis dengan struktur kode rapi, responsif di semua layar, dan siap dikembangkan lebih lanjut. Spesialis di ekosistem React/Next.js dengan animasi yang halus tapi tidak mengganggu.",
@@ -60,8 +60,8 @@ export const expertiseGroups: ExpertiseGroup[] = [
     id: "design",
     title: { id: "Visual Design", en: "Visual Design" },
     description: {
-      id: "Menerjemahkan ide jadi visual yang punya sistem, bukan tempelan.",
-      en: "Turning ideas into visuals with a system — not sticker-on aesthetics.",
+      id: "Merancang identitas visual, tata letak, dan grafis yang konsisten serta punya karakter kuat.",
+      en: "Crafting visual identities, layouts, and graphics that feel consistent and full of character.",
     },
     longDescription: {
       id: "Mulai dari graphic design untuk sosial media sampai identitas visual yang konsisten. Setiap desain dibangun di atas grid, tipografi, dan palet yang punya alasan — bukan asal cantik. Terbiasa bekerja dari brief kasar sampai final file yang siap pakai.",
@@ -85,8 +85,8 @@ export const expertiseGroups: ExpertiseGroup[] = [
     id: "creative-tech",
     title: { id: "Teknologi Kreatif", en: "Creative Technology" },
     description: {
-      id: "Menyambungkan kode dengan perangkat fisik dan interaksi nyata.",
-      en: "Connecting code with physical devices and real-world interaction.",
+      id: "Eksperimen memadukan kode dengan perangkat fisik lewat sensor, mikrokontroler, dan prototipe IoT.",
+      en: "Bridging software with physical hardware, exploring sensors, microcontrollers, and IoT.",
     },
     longDescription: {
       id: "Eksperimen di persimpangan hardware dan software: prototipe IoT, sensor, dan instalasi interaktif. Di divisi R&D robotika, terbiasa menerjemahkan ide jadi rangkaian, kode, dan dokumentasi yang bisa diulang orang lain.",
@@ -108,8 +108,8 @@ export const expertiseGroups: ExpertiseGroup[] = [
     id: "research",
     title: { id: "Riset & Problem Solving", en: "Research & Problem Solving" },
     description: {
-      id: "Mikir terstruktur sebelum membangun, biar hasilnya nggak asal jalan.",
-      en: "Thinking in structure before building, so results don't just accidentally work.",
+      id: "Mencari akar masalah dan membedah kebutuhan pengguna agar solusi yang dibuat tepat sasaran.",
+      en: "Digging into core problems and user needs to ensure every solution hits the mark.",
     },
     longDescription: {
       id: "Setiap proyek dimulai dari pertanyaan yang benar: siapa penggunanya, apa masalahnya, apa ukuran berhasilnya. Terbiasa menyusun referensi, membandingkan pendekatan, dan mendokumentasikan keputusan supaya eksperimen tidak berhenti jadi eksperimen.",
