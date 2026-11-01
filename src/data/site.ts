@@ -17,10 +17,10 @@ export const site = {
     id: "Developer & graphic designer yang membangun hal yang jalan — bukan sekadar tampil bagus.",
     en: "Developer & graphic designer building things that run — not just look good.",
   } as L,
-  /** PLACEHOLDER — ganti dengan nomor WhatsApp asli (format internasional tanpa +) */
+  /** Nomor WhatsApp asli (format internasional tanpa +) */
   whatsapp: "6281234567890",
-  /** PLACEHOLDER — ganti dengan email asli */
-  email: "hello@avoocreator.dev",
+  /** Email kontak utama */
+  email: "avoocreator@gmail.com",
   location: { id: "Jawa Timur, Indonesia", en: "East Java, Indonesia" } as L,
   availability: {
     id: "Siap ngulik hal baru",
@@ -28,9 +28,8 @@ export const site = {
   } as L,
   socials: [
     { label: "GitHub", href: "https://github.com/avoocreator", handle: "@avoocreator" },
-    // PLACEHOLDER — ganti dengan link asli
     { label: "Instagram", href: "https://instagram.com/avoocreator", handle: "@avoocreator" },
-    { label: "LinkedIn", href: "https://linkedin.com/in/avoocreator", handle: "Avoo Creator" },
+    { label: "LinkedIn", href: "https://linkedin.com/in/avoocreator", handle: "Avian" },
   ] as SocialLink[],
   stats: [
     { value: 6, suffix: "+", label: { id: "Proyek dikerjakan", en: "Projects worked on" } as L },
