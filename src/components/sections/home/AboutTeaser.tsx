@@ -1,19 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Sparkles, Layers, Compass } from "lucide-react";
 import { useLang } from "@/i18n/LangProvider";
 import { tx } from "@/i18n/types";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Mascot } from "@/components/mascot/Mascot";
-
-const PHOTO_SRC = "/assets/about/avian.jpg";
 
 export function AboutTeaser() {
   const { lang, dict } = useLang();
-  const [photoFailed, setPhotoFailed] = useState(false);
 
   const pillars = [
     {
@@ -50,33 +45,36 @@ export function AboutTeaser() {
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
         <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-center">
           
-          {/* Sisi Kiri: Visual Avatar / Maskot bebas tanpa kotak kaku */}
+          {/* Sisi Kiri: Foto Kreator bebas tanpa box dengan fade gradient halus di bawah */}
           <Reveal className="flex flex-col items-center justify-center">
-            <div className="relative w-full max-w-[340px] aspect-square flex items-center justify-center">
+            <div className="relative w-full max-w-[320px] sm:max-w-[360px] flex items-center justify-center">
               {/* Pendaran ambient hangat */}
               <div
                 className="absolute inset-0 rounded-full bg-accent/15 blur-3xl scale-90 pointer-events-none"
                 aria-hidden="true"
               />
 
-              {!photoFailed ? (
-                <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden border-2 border-border/80 shadow-xl">
-                  <img
-                    src={PHOTO_SRC}
-                    alt={lang === "id" ? "Avian — Avoo Creator" : "Avian — Avoo Creator"}
-                    onError={() => setPhotoFailed(true)}
-                    className="h-full w-full object-cover object-top"
-                  />
-                </div>
-              ) : (
-                <div className="relative flex flex-col items-center">
-                  <Mascot
-                    variant="curious"
-                    className="w-56 sm:w-64 drop-shadow-[0_20px_35px_rgba(226,102,31,0.2)]"
-                    float={true}
-                  />
-                </div>
-              )}
+              {/* Wrapper dengan CSS gradient mask agar potongan bawah memudar halus */}
+              <div
+                className="relative z-10 w-full flex items-center justify-center"
+                style={{
+                  maskImage: "linear-gradient(to bottom, black 65%, transparent 98%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, black 65%, transparent 98%)",
+                }}
+              >
+                {/* Light mode: Dots - Orange */}
+                <img
+                  src="/assets/photo/dots-orange.webp"
+                  alt={lang === "id" ? "Avian — Avoo Creator" : "Avian — Avoo Creator"}
+                  className="w-full h-auto object-contain dark:hidden drop-shadow-[0_20px_35px_rgba(226,102,31,0.2)] transition-transform duration-500 hover:scale-105"
+                />
+                {/* Dark mode: Dots - White */}
+                <img
+                  src="/assets/photo/dots-white.webp"
+                  alt={lang === "id" ? "Avian — Avoo Creator" : "Avian — Avoo Creator"}
+                  className="hidden dark:block w-full h-auto object-contain drop-shadow-[0_20px_35px_rgba(255,255,255,0.1)] transition-transform duration-500 hover:scale-105"
+                />
+              </div>
             </div>
           </Reveal>
 

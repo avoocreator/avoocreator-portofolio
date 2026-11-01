@@ -65,7 +65,7 @@ export const dictionary = {
       ctaSub: "Ceritakan kebutuhanmu — respons cepat, proses jelas, hasil yang bisa dipakai.",
     },
     tentang: {
-      kicker: "Tentang Saya",
+      kicker: "Tentang",
       title: "Di balik Avoo Creator",
       introLabel: "Siapa saya",
       nilaiLabel: "Nilai kerja",
@@ -275,7 +275,7 @@ export const dictionary = {
       ctaSub: "Tell me what you need — fast response, clear process, usable results.",
     },
     tentang: {
-      kicker: "About Me",
+      kicker: "About",
       title: "Behind Avoo Creator",
       introLabel: "Who I am",
       nilaiLabel: "Work values",

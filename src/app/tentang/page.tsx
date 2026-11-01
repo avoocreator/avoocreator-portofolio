@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Tentang",
   description:
-    "Kenalan dengan Avian (Avoo Creator) — web developer & graphic designer dari Jawa Timur yang bangun hal yang jalan, bukan cuma tampil bagus.",
+    "Kenalan dengan Avian, kreator di balik Avoo Creator — merancang visual, menulis kode, dan membangun karya yang punya tujuan serta nyaman digunakan.",
 };
 
 export default async function TentangPage() {

@@ -5,51 +5,51 @@ export const aboutContent = {
   /** Paragraf pembuka halaman tentang */
   intro: [
     {
-      id: "Halo! Saya Avian — siswa dari Jawa Timur yang berkecimpung di dunia web development, desain grafis, dan teknologi kreatif dengan nama panggung Avoo Creator. Semua dimulai dari rasa penasaran: kenapa sebuah desain yang bagus di layar bisa berubah jadi sesuatu yang hidup ketika diberi kode.",
-      en: "Hi! I'm Avian — a student from East Java working in web development, graphic design, and creative technology under the name Avoo Creator. It all started with curiosity: why does a design that looks good on screen become something alive when you give it code.",
+      id: "Halo, saya Avian, kreator di balik Avoo Creator. Saya tertarik pada web development, desain grafis, dan berbagai hal seputar teknologi. Awalnya, semua berangkat dari rasa penasaran tentang bagaimana desain dan kode bisa bekerja sama untuk mengubah sebuah ide menjadi sesuatu yang nyata.",
+      en: "Hi, I'm Avian, the creator behind Avoo Creator. I'm fascinated by web development, graphic design, and all things tech. It all started with curiosity about how design and code can work together to turn an idea into something real.",
     },
     {
-      id: "Sejak itu, saya belajar dengan cara membangun. Bukan nunggu kelas atau kursus, tapi langsung bikin: redesign website sekolah untuk kompetisi, eksperimen robotika di divisi R&D, sampai mengerjakan proyek desain untuk orang lain. Cara ini bikin setiap skill langsung teruji di dunia nyata.",
-      en: "Since then, I've been learning by building. Not waiting for classes or courses — just making things: redesigning a school website for a competition, experimenting with robotics in the R&D division, and doing design work for other people. This way, every skill gets tested in the real world immediately.",
+      id: "Saya paling suka belajar dengan mencoba langsung. Dari membangun website, mengerjakan proyek desain, hingga bereksperimen dengan robotika di divisi R&D, ada banyak hal yang saya pelajari dari setiap prosesnya. Terkadang berhasil, terkadang harus mengulang dari awal, tetapi justru di situ saya menemukan hal-hal baru.",
+      en: "I learn best by getting my hands dirty. From building websites and taking on design projects to experimenting with robotics in the R&D division, there is so much I pick up from every process. Sometimes it works on the first try, sometimes I have to start over from scratch, but that's precisely where I discover new things.",
     },
     {
-      id: "Prinsip saya sederhana: bangun yang jalan, bukan yang cuma bagus di mockup. Karena itu setiap proyek saya selalu diawali pertanyaan — ini dibuat untuk siapa, menyelesaikan masalah apa, dan bagaimana cara mengukur berhasilnya.",
-      en: "My principle is simple: build things that run, not things that just look good in mockups. That's why every project starts with questions — who is this for, what problem does it solve, and how do we measure success.",
+      id: "Bagi saya, membuat sesuatu bukan cuma soal bagaimana hasilnya terlihat, tetapi juga bagaimana cara kerjanya dan seberapa berguna hasilnya bagi orang lain. Saya ingin terus membuat karya yang bukan hanya menarik secara visual, tetapi juga punya tujuan dan benar-benar bisa digunakan.",
+      en: "To me, creating isn't just about how things look, but how they work and how useful they are to others. I want to keep crafting work that isn't just visually engaging, but purposeful and truly usable.",
     },
   ] as L[],
 
   /** Nilai kerja */
   values: [
     {
-      icon: "check-circle",
-      title: { id: "Jalan dulu, baru indah", en: "Working first, pretty second" },
+      icon: "layers",
+      title: { id: "Fungsionalitas di Prioritas Utama", en: "Functionality as Top Priority" },
       description: {
-        id: "Fungsionalitas selalu di depan. Desain yang cantik tapi tidak bisa dipakai itu tugas yang belum selesai.",
-        en: "Functionality always comes first. A beautiful design that can't be used is an unfinished job.",
+        id: "Setiap fitur harus memiliki tujuan dan berjalan sesuai kebutuhan. Alur interaksi, validasi input, penanganan error, dan konsistensi perilaku menjadi bagian dari implementasi.",
+        en: "Every feature must serve a purpose and perform to expectations. Interaction flows, input validation, error handling, and behavioral consistency are core parts of the implementation.",
       },
     },
     {
-      icon: "target",
-      title: { id: "Detail itu wajib", en: "Details are mandatory" },
+      icon: "layout",
+      title: { id: "Konsistensi UI dan UX", en: "UI & UX Consistency" },
       description: {
-        id: "Spacing, hierarki, konsistensi — hal kecil yang menentukan kesan profesional. Saya nggak berhemat di sini.",
-        en: "Spacing, hierarchy, consistency — small things that define professionalism. I don't cut corners here.",
+        id: "Tipografi, spacing, hierarki visual, dan komponen mengikuti sistem desain yang konsisten. Layout dirancang responsif agar tetap optimal di berbagai ukuran layar dan perangkat.",
+        en: "Typography, spacing, visual hierarchy, and components follow a cohesive design system. Layouts are built responsive to stay optimal across all screen sizes and devices.",
       },
     },
     {
-      icon: "lightbulb",
-      title: { id: "Belajar dengan membangun", en: "Learning by building" },
+      icon: "zap",
+      title: { id: "Performa dan Efisiensi", en: "Performance & Efficiency" },
       description: {
-        id: "Cara tercepat menguasai sesuatu adalah memakainya di proyek nyata. Setiap proyek selalu ada satu hal baru yang dicoba.",
-        en: "The fastest way to master something is to use it in a real project. Every project gets one new thing tried.",
+        id: "Struktur kode, strategi rendering, pemuatan aset, dan pengelolaan state diperhatikan untuk menjaga performa. Implementasi diupayakan tetap efisien, mudah dipelihara, dan tidak menambah kompleksitas yang tidak diperlukan.",
+        en: "Code structure, rendering strategies, asset delivery, and state management are tuned to preserve performance. Implementations stay clean, maintainable, and free of unnecessary complexity.",
       },
     },
     {
-      icon: "message",
-      title: { id: "Komunikasi yang jelas", en: "Clear communication" },
+      icon: "refresh",
+      title: { id: "Pengujian dan Iterasi", en: "Testing & Iteration" },
       description: {
-        id: "Progres dilaporkan, kendala dijelaskan, opsi diberikan. Klien tidak perlu menebak apa yang sedang dikerjakan.",
-        en: "Progress reported, obstacles explained, options given. Clients never have to guess what's being worked on.",
+        id: "Setiap perubahan perlu divalidasi melalui pengujian fungsional, pemeriksaan responsivitas, dan debugging. Temuan dari proses pengujian digunakan untuk memperbaiki stabilitas, mengurangi regresi, dan meningkatkan kualitas implementasi.",
+        en: "Every change is validated through functional testing, responsiveness checks, and debugging. Findings from testing strengthen stability, prevent regressions, and elevate overall build quality.",
       },
     },
   ],
@@ -84,9 +84,9 @@ export const aboutContent = {
 
   quote: {
     text: {
-      id: "Kode bisa diperbaiki, desain bisa diiterasi — tapi kemauan untuk menyelesaikan hal dengan benar harus ada dari awal.",
-      en: "Code can be fixed, designs can be iterated — but the will to finish things properly has to exist from the start.",
+      id: "Teknologi memberi kita cara untuk membangun. Kreativitas memberi kita alasan untuk menciptakannya.",
+      en: "Technology gives us the means to build. Creativity gives us the reason to create.",
     },
-    author: "Avian — Avoo Creator",
+    author: "Avian",
   },
 };

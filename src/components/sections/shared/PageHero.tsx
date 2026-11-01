@@ -21,8 +21,7 @@ export function PageHero({
       <div className="absolute -top-16 right-[15%] h-56 w-56 glow-orange rounded-full" aria-hidden="true" />
       <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6">
         <Reveal y={14} blur={false}>
-          <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">
-            <span className="h-px w-8 bg-accent/60" aria-hidden="true" />
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
             {kicker}
           </span>
         </Reveal>

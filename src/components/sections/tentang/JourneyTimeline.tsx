@@ -99,8 +99,8 @@ export function JourneyTimeline({
             <blockquote className="font-display font-semibold text-xl sm:text-2xl leading-snug tracking-tight">
               “{about.quote.text[lang]}”
             </blockquote>
-            <figcaption className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              — {about.quote.author}
+            <figcaption className="mt-4 font-mono text-xs tracking-[0.18em] text-muted-foreground">
+              ~ {about.quote.author}
             </figcaption>
           </figure>
         </Reveal>

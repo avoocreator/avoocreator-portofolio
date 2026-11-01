@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useLang } from "@/i18n/LangProvider";
 import type { AboutContentData } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
-import { Mascot } from "@/components/mascot/Mascot";
 import { tx } from "@/i18n/types";
 
 /** Pembuka halaman Tentang — intro + maskot interaktif */
@@ -36,8 +35,7 @@ export function TentangHero({ about }: { about: AboutContentData }) {
         <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
             <Reveal y={14} blur={false}>
-              <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">
-                <span className="h-px w-8 bg-accent/60" aria-hidden="true" />
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
                 {dict.tentang.kicker}
               </span>
             </Reveal>
@@ -63,31 +61,39 @@ export function TentangHero({ about }: { about: AboutContentData }) {
           </div>
 
           <Reveal delay={0.25} className="mx-auto">
-            <motion.div style={{ rotateX: rotX, rotateY: rotY, perspective: 900 }}>
-              {about.photoUrl ? (
-                <figure
-                  className="relative w-[260px] lg:w-[340px]"
-                  style={{ aspectRatio: "4 / 5" }}
-                >
-                  {/* bingkai aksen di belakang foto */}
-                  <div
-                    className="absolute -inset-2 rounded-3xl border border-accent/40 bg-accent/5"
-                    aria-hidden="true"
-                  />
-                  <img
-                    src={about.photoUrl}
-                    alt={tx(about.photoAlt, lang) || "Foto profil"}
-                    className="relative h-full w-full rounded-3xl border border-border object-cover shadow-2xl"
-                    loading="eager"
-                  />
-                </figure>
-              ) : (
-                <Mascot
-                  variant="curious"
-                  eager
-                  className="w-[260px] lg:w-[340px] drop-shadow-2xl"
+            <motion.div
+              style={{ rotateX: rotX, rotateY: rotY, perspective: 900 }}
+              className="relative w-[280px] sm:w-[320px] lg:w-[360px] flex items-center justify-center"
+            >
+              {/* Pendaran ambient hangat */}
+              <div
+                className="absolute inset-0 rounded-full bg-accent/15 blur-3xl scale-90 pointer-events-none"
+                aria-hidden="true"
+              />
+
+              {/* Wrapper dengan CSS gradient mask agar potongan bawah memudar halus */}
+              <div
+                className="relative z-10 w-full flex items-center justify-center"
+                style={{
+                  maskImage: "linear-gradient(to bottom, black 65%, transparent 98%)",
+                  WebkitMaskImage: "linear-gradient(to bottom, black 65%, transparent 98%)",
+                }}
+              >
+                {/* Light mode: Dots - Orange */}
+                <img
+                  src="/assets/photo/dots-orange.webp"
+                  alt={tx(about.photoAlt, lang) || "Avian — Avoo Creator"}
+                  className="w-full h-auto object-contain dark:hidden drop-shadow-[0_25px_40px_rgba(226,102,31,0.22)]"
+                  loading="eager"
                 />
-              )}
+                {/* Dark mode: Dots - White */}
+                <img
+                  src="/assets/photo/dots-white.webp"
+                  alt={tx(about.photoAlt, lang) || "Avian — Avoo Creator"}
+                  className="hidden dark:block w-full h-auto object-contain drop-shadow-[0_25px_40px_rgba(255,255,255,0.12)]"
+                  loading="eager"
+                />
+              </div>
             </motion.div>
           </Reveal>
         </div>
